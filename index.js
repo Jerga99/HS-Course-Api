@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 const cardRoutes = require('./routes/cards');
 
@@ -11,6 +12,19 @@ const API_KEY = process.env.NODE_ENV === 'production'
               ? process.env.API_KEY
               : require('./keys')['API_KEY']
 
+
+// const whitelist = ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:4200', 'http://localhost:8080']
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS, Allowed domains: http://localhost:3000', 'http://localhost:3001', 'http://localhost:4200', 'http://localhost:8080'))
+//     }
+//   }
+// }
+
+app.use(cors())
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
   const reqApiKey = req.get('X-Ionic-Course-Key');

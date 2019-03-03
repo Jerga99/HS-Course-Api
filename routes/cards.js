@@ -8,9 +8,10 @@ router.get('', function(req, res) {
 
 router.get('/:cardId', function(req, res) {
   const {cardId} = req.params
-  const card = cards.find(card => card.id === cardId)
+  const card = cards.find(card => card.cardId === cardId)
   if (card) {
-    return res.json(card)
+    card.img = `http://wow.zamimg.com/images/hearthstone/cards/enus/original/${card.cardId}.png`
+    return res.json([card])
   } else {
     return res.status(422).send({errors: {message: 'Card not found!'}})
   }
